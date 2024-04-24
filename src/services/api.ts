@@ -1,22 +1,18 @@
-import axios from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
-export const fetchPokemonListAPI = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/pokemon`);
-    return response.data.results; // Assuming the API returns an array of Pokemon objects
-  } catch (error) {
-    throw new Error('Failed to fetch Pokemon list');
-  }
-};
+// Define an API slice with RTK Query
+export const pokemonApi = createApi({
+  reducerPath: 'pokemonApi',
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  endpoints: (builder) => ({
+    fetchPokemonList: builder.query<any, void>({
+      query: () => '/pokemon',
+    }),
+    // Add other endpoints as needed
+  }),
+});
 
-// Function to fetch details of a specific Pokemon
-export const fetchPokemonDetailsAPI = async (id: number) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/pokemon/${id}`);
-    return response.data; // Assuming the API returns details of the specified Pokemon
-  } catch (error) {
-    throw new Error(`Failed to fetch details for Pokemon with ID: ${id}`);
-  }
-};
+// Export hooks for using the API endpoints
+export const { useFetchPokemonListQuery } = pokemonApi;
