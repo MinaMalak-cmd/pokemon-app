@@ -10,17 +10,18 @@ const PokemonList: FC = () => {
   const { data, error, isLoading, refetch, isFetching, status, isError } = useGetPokemonListQuery();
   const pokemonList = data?.results;
   const { data:pokemonData } = useGetPokemonItemByIdQuery(1);
-  console.log("🚀 ~ data:", { data, error, isLoading, refetch, isFetching, status, pokemonData }, pokemonData?.id);
   if (isError) return <div>An error has occurred!</div>
 
   if (isLoading) return <div>Loading ...</div>
   return (
-    <div>
+    <section>
       <h3 className={styles['pokemon-list-header']}>PokeReact</h3>
-      {pokemonList?.map((pokemon) => (
-        <PokemonListItem pokemon={pokemon}/>
-      ))}
-    </div>
+      <ul className={styles['pokemon-list']}>
+        {pokemonList?.map((pokemon) => (
+          <PokemonListItem pokemon={pokemon}/>
+        ))}
+      </ul>
+    </section>
   );
 };
 

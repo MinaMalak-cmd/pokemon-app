@@ -1,8 +1,12 @@
 .pokemon-list-header {
-    width: fit-content;
     padding-inline-end: 20px;
     background: blue;
     color: white;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 600;
+    padding-inline-start: 0.4rem;
+    padding-block: 0.6rem;
+}
+.pokemon-list{
+    padding: 0;
 }

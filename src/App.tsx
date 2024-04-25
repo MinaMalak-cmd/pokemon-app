@@ -7,7 +7,7 @@ function App() {
       <header>
         <h1>Pokemon App</h1>
       </header>
-      <main>
+      <main className={styles["app-pokemon-list"]}>
         <PokemonList /> {/* Render PokemonList component */}
       </main>
     </div>
