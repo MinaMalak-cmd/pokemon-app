@@ -1,18 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { PokemonListResponse, PokemonPartial } from '../types/types';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
-
-type PokemonResult = {
-  name: string;
-  url: string;
-}
-
-interface PokemonListResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: PokemonResult[];
-}
 
 
 // Define an API slice with RTK Query
@@ -23,7 +12,7 @@ export const pokemonApi = createApi({
     getPokemonList: builder.query<PokemonListResponse, void>({
       query: () => '/pokemon',
     }),
-    getPokemonItemById: builder.query<any, string | number>({
+    getPokemonItemById: builder.query<Partial<PokemonPartial>, string | number>({
       query: (id:string | number) => `/pokemon/${id}`,
     }),
     // Add other endpoints as needed

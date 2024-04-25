@@ -6,7 +6,8 @@ const PokemonList: FC = () => {
   // const dispatch: any = useDispatch();
   // const pokemonList = useSelector(selectPokemonList) as any;
   const { data, error, isLoading, refetch, isFetching, status } = useGetPokemonListQuery();
-  console.log("🚀 ~ data:", { data, error, isLoading, refetch, isFetching, status }, data?.results);
+  const { data:pokemonData } = useGetPokemonItemByIdQuery(1);
+  console.log("🚀 ~ data:", { data, error, isLoading, refetch, isFetching, status, pokemonData }, pokemonData?.id);
 
   return (
     <div>
