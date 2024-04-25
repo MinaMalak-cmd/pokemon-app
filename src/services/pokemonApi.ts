@@ -3,7 +3,6 @@ import { PokemonListResponse, PokemonPartial } from '../types/types';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
-
 // Define an API slice with RTK Query
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
