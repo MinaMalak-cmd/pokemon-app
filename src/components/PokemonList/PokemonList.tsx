@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useGetPokemonListQuery, useGetPokemonItemByIdQuery } from '../../services/pokemonApi';
 // import { fetchPokemonList, selectPokemonList } from '../../store/slices/pokemonSlice';
-import getPokemonId from "../../utils/getPokemonId";
 import styles from "./PokemonList.module.scss";
 import PokemonListItem from './partials/PokemonListItem';
 
@@ -19,10 +18,6 @@ const PokemonList: FC = () => {
     <div>
       <h3 className={styles['pokemon-list-header']}>PokeReact</h3>
       {pokemonList?.map((pokemon) => (
-        // <div key={getPokemonId(pokemon.url)}>
-        // <div key={pokemon.name} className={styles['pokem']}>
-        //   <span>{pokemon.name} {getPokemonId(pokemon.url)}</span>
-        // </div>
         <PokemonListItem pokemon={pokemon}/>
       ))}
     </div>
