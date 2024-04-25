@@ -10,7 +10,7 @@ export interface PokemonListResponse {
   results: PokemonResult[];
 }
 
-type PokemonType = {
+export type PokemonType = {
   slot: number;
   type: {
     name: string;

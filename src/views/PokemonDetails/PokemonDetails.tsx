@@ -3,6 +3,7 @@ import { PokemonPartial } from "../../types/types";
 import styles from "./PokemonDetails.module.scss";
 import getPokemonImageUrl from "../../utils/getPokemonImageUrl";
 import PokemonDetailsPropertyWrapper from "./partials/PokemonDetailsPropertyWrapper";
+import formatPokemonTypes from "../../utils/formatPokemonType";
 
 interface PokemonDetailsProps {
   pokemonData: PokemonPartial;
@@ -22,6 +23,9 @@ const PokemonDetails: FC<PokemonDetailsProps> = ({ pokemonData }) => {
   const formattedWeight = useMemo(() => {
     return `${valueOrEmpty('weight')} kg`
   }, []);
+  const formattedTypes = useMemo(() => {
+    return formatPokemonTypes(pokemonData.types);
+  }, [])
   return (
     <section>
       <h3 className={styles["pokemon-details-header"]}>{formattedName}</h3>
@@ -29,8 +33,7 @@ const PokemonDetails: FC<PokemonDetailsProps> = ({ pokemonData }) => {
       <PokemonDetailsPropertyWrapper title="Name" value={formattedName}/>
       <PokemonDetailsPropertyWrapper title="Height" value={formattedHeight}/>
       <PokemonDetailsPropertyWrapper title="Weight" value={formattedWeight}/>
-      <PokemonDetailsPropertyWrapper title="Types" value={'ddfk'}/>
-
+      <PokemonDetailsPropertyWrapper title="Types" value={formattedTypes} isType={true}/>
       <div className={styles['outer-border']}></div>
     </section>
   );
