@@ -30,10 +30,10 @@ const PokemonDetails: FC = () => {
     <section>
       <h3 className={styles["pokemon-details-header"]}>{formattedName}</h3>
       <img src={imgSrc} alt="pokemon" className={styles['pokemon-details-image']}/>
-      <PokemonDetailsPropertyWrapper title="Name" value={formattedName}/>
-      <PokemonDetailsPropertyWrapper title="Height" value={formattedHeight}/>
-      <PokemonDetailsPropertyWrapper title="Weight" value={formattedWeight}/>
-      <PokemonDetailsPropertyWrapper title="Types" value={formattedTypes} isType={true}/>
+      <PokemonDetailsPropertyWrapper title="Name" value={formattedName} key="Name"/>
+      <PokemonDetailsPropertyWrapper title="Height" value={formattedHeight} key="Height"/>
+      <PokemonDetailsPropertyWrapper title="Weight" value={formattedWeight} key="Weight"/>
+      <PokemonDetailsPropertyWrapper title="Types" value={formattedTypes} isType={true} key="Types"/>
       <div className={styles['outer-border']}></div>
     </section>
   );

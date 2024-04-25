@@ -48,7 +48,7 @@ const pokemonSlice = createSlice({
         isAllOf(pokemonApi.endpoints.getPokemonItemById.matchFulfilled),
         (state, action) => {
           console.log("🚀 ~ state:", state, action)
-          state.selectedPokemon = action.payload;
+          // state.selectedPokemon = action?.payload;
           // state.error = action.error.message ?? "Failed to fetch Pokemon list";
         }
       );
