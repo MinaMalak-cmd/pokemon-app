@@ -1,15 +1,12 @@
 import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import { RootState } from '../store';
+import { useGetPokemonListQuery, useGetPokemonItemByIdQuery } from '../../services/pokemonApi';
 // import { fetchPokemonList, selectPokemonList } from '../../store/slices/pokemonSlice';
 
 const PokemonList: FC = () => {
   // const dispatch: any = useDispatch();
   // const pokemonList = useSelector(selectPokemonList) as any;
-
-  // useEffect(() => {
-  //   dispatch(fetchPokemonList());
-  // }, [dispatch]);
+  const { data, error, isLoading, refetch, isFetching, status } = useGetPokemonListQuery();
+  console.log("🚀 ~ data:", { data, error, isLoading, refetch, isFetching, status }, data?.results);
 
   return (
     <div>
