@@ -4,28 +4,28 @@ import styles from "./PokemonDetails.module.scss";
 import getPokemonImageUrl from "../../utils/getPokemonImageUrl";
 import PokemonDetailsPropertyWrapper from "./partials/PokemonDetailsPropertyWrapper";
 import formatPokemonTypes from "../../utils/formatPokemonType";
+import { useSelector } from "react-redux";
+import { selectedPokemon } from "../../store/slices/pokemonSlice";
 
-interface PokemonDetailsProps {
-  pokemonData: PokemonPartial;
-}
-const PokemonDetails: FC<PokemonDetailsProps> = ({ pokemonData }) => {
-  console.log("🚀 ~ pokemonData:", pokemonData);
+const PokemonDetails: FC = () => {
+  const pokemonData = useSelector(selectedPokemon);
+
   const imgSrc = getPokemonImageUrl(pokemonData?.id);
   const valueOrEmpty = useCallback((key:string) => {
-    return pokemonData[key as keyof PokemonPartial] || '';  
-  },[])
+    return pokemonData && pokemonData[key as keyof PokemonPartial] ? pokemonData[key as keyof PokemonPartial] : '';  
+  },[pokemonData])
   const formattedName = useMemo(() => {
     return valueOrEmpty('name') as any
-  }, [])
+  }, [valueOrEmpty])
   const formattedHeight = useMemo(() => {
     return `${valueOrEmpty('height')} cm`
-  }, []);
+  }, [valueOrEmpty]);
   const formattedWeight = useMemo(() => {
     return `${valueOrEmpty('weight')} kg`
-  }, []);
+  }, [valueOrEmpty]);
   const formattedTypes = useMemo(() => {
-    return formatPokemonTypes(pokemonData.types);
-  }, [])
+    return formatPokemonTypes(pokemonData?.types);
+  }, [pokemonData?.types])
   return (
     <section>
       <h3 className={styles["pokemon-details-header"]}>{formattedName}</h3>
