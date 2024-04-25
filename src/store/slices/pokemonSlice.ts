@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { PokemonPartial } from '../../types/types';
 
 interface Pokemon {
   id: number;
@@ -10,12 +11,14 @@ interface PokemonState {
   list: Pokemon[];
   loading: boolean;
   error: string | null;
+  selectedPokemon: PokemonPartial | undefined;
 }
 
 const initialState: PokemonState = {
   list: [],
   loading: false,
   error: null,
+  selectedPokemon: undefined
 };
 
 // export const fetchPokemonList = createAsyncThunk('pokemon/fetchList', async () => {
@@ -26,7 +29,11 @@ const initialState: PokemonState = {
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedPokemon(state, action: PayloadAction<PokemonPartial | undefined>) {
+      state.selectedPokemon = action.payload;
+    }
+  },
   // extraReducers: builder => {
   //   builder
   //     .addCase(fetchPokemonList.pending, state => {
@@ -45,5 +52,6 @@ const pokemonSlice = createSlice({
 });
 
 export const selectPokemonList = (state: RootState) => state.pokemonSlice.list;
+export const selectedPokemon = (state: RootState) => state.pokemonSlice.selectedPokemon;
 
 export default pokemonSlice.reducer;
