@@ -4,8 +4,8 @@ import getPokemonId from "../../../utils/getPokemonId";
 import styles from "./PokemonListItem.module.scss";
 import getPokemonImageUrl from "../../../utils/getPokemonImageUrl";
 interface PokemonListItemProps {
-    pokemon: PokemonResult;
-  }
+  pokemon: PokemonResult;
+}
 const PokemonListItem: FC<PokemonListItemProps> = ({ pokemon }) => {
   const id = getPokemonId(pokemon.url) || "";
   const imgSrc = getPokemonImageUrl(id);

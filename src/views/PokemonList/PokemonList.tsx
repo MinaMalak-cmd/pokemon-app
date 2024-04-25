@@ -1,4 +1,4 @@
-import React, { FC, useEffect, memo } from 'react';
+import { FC, useEffect, memo } from 'react';
 import { useGetPokemonListQuery, useGetPokemonItemByIdQuery } from '../../services/pokemonApi';
 // import { fetchPokemonList, selectPokemonList } from '../../store/slices/pokemonSlice';
 import styles from "./PokemonList.module.scss";

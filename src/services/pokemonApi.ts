@@ -12,7 +12,7 @@ export const pokemonApi = createApi({
     getPokemonList: builder.query<PokemonListResponse, void>({
       query: () => '/pokemon',
     }),
-    getPokemonItemById: builder.query<Partial<PokemonPartial>, string | number>({
+    getPokemonItemById: builder.query<PokemonPartial, string | number>({
       query: (id:string | number) => `/pokemon/${id}`,
     }),
     // Add other endpoints as needed
