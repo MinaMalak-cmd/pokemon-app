@@ -1,7 +1,7 @@
-import PokemonList from "./components/PokemonList";
+import PokemonList from "./views/PokemonList";
 import styles from "./styles/App.module.scss";
 
-function App() {
+const App = () => {
   return (
     <div className={styles["App"]}>
       <header>

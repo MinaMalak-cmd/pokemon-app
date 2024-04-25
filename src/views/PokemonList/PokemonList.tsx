@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, memo } from 'react';
 import { useGetPokemonListQuery, useGetPokemonItemByIdQuery } from '../../services/pokemonApi';
 // import { fetchPokemonList, selectPokemonList } from '../../store/slices/pokemonSlice';
 import styles from "./PokemonList.module.scss";
@@ -25,4 +25,4 @@ const PokemonList: FC = () => {
   );
 };
 
-export default PokemonList;
+export default memo(PokemonList);
