@@ -2,11 +2,11 @@ import { FC, memo, useEffect, useState } from 'react';
 import { useGetPokemonListQuery } from '../../services/pokemonApi';
 import styles from "./PokemonList.module.scss";
 import PokemonListItem from './partials/PokemonListItem';
-import { useDispatch, useSelector } from 'react-redux';
 import { setPokemonId, useSelectState } from '../../store/slices/pokemonSlice';
+import { useAppDispatch, useTypedSelector } from '../../store/store-hooks';
 const PokemonList: FC = () => {
-  const dispatch = useDispatch();
-  const pokemonList = useSelector(useSelectState('list'));
+  const dispatch = useAppDispatch();
+  const pokemonList = useTypedSelector(useSelectState('list'));
   useGetPokemonListQuery();
   const [selectedPokemonId, setSelectedPokemonId] = useState<number | string>('');
   const pokemonClickHandler =  (id: number|string) => {
