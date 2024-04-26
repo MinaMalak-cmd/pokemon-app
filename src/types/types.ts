@@ -28,7 +28,7 @@ export interface PokemonPartial {
 export interface PokemonState {
   list: PokemonResult[];
   loading: boolean;
-  error: string | null;
+  error: boolean;
   selectedPokemon: PokemonPartial | undefined;
   pokemonId : string | number | undefined;
 }

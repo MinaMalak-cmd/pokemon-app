@@ -14,7 +14,6 @@ interface PokemonDetailsProps {
 const PokemonDetails: FC<PokemonDetailsProps> = ({pokemonId}) => {
   useGetPokemonItemByIdQuery(pokemonId);
   const pokemonData = useSelector(useSelectState('selectedPokemon'));
-
   const imgSrc = getPokemonImageUrl(pokemonData?.id);
   const valueOrEmpty = useCallback((key:string) => {
     return pokemonData && pokemonData[key as keyof PokemonPartial] ? pokemonData[key as keyof PokemonPartial] : '';  
@@ -22,7 +21,6 @@ const PokemonDetails: FC<PokemonDetailsProps> = ({pokemonId}) => {
   const formattedName = useMemo(() => {
     return valueOrEmpty('name') as any
   }, [valueOrEmpty])
-  console.log("🚀 ~ formattedName:", formattedName)
   const formattedHeight = useMemo(() => {
     return `${valueOrEmpty('height')} cm`
   }, [valueOrEmpty]);

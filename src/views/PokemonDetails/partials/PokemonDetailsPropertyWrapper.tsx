@@ -20,7 +20,7 @@ const PokemonDetailsPropertyWrapper: FC<PropertyWrapperProps> = ({
           value?.map((type: string) => <div key={Math.random()}>{type}</div>)}
       </div>
     );
-  }, [title, value, isType]);
+  }, [value, isType]);
   return (
     <div className={styles["property-wrapper"]}>
       <p className={styles["property-title"]}>{title}</p>

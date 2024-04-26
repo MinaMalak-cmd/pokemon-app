@@ -1,4 +1,4 @@
-import { createSlice, isAllOf, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, isAllOf, PayloadAction, isAnyOf } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { PokemonPartial, PokemonState } from "../../types/types";
 import { pokemonApi } from "../../services/pokemonApi";
@@ -6,7 +6,7 @@ import { pokemonApi } from "../../services/pokemonApi";
 const initialState: PokemonState = {
   list: [],
   loading: false,
-  error: null,
+  error: false,
   selectedPokemon: undefined,
   pokemonId: undefined
   
@@ -35,23 +35,30 @@ const pokemonSlice = createSlice({
         isAllOf(pokemonApi.endpoints.getPokemonList.matchFulfilled),
         (state, action) => {
           state.list = action.payload.results;
-          // state.error = action.error.message ?? "Failed to fetch Pokemon list";
-        }
-      )
-      .addMatcher(
-        isAllOf(pokemonApi.endpoints.getPokemonItemById.matchPending),
-        (state, action) => {
-          console.log("🚀 ~ state: Pendinggggg", state, action)
-          // state.selectedPokemon = action?.payload;
-          // state.error = action.error.message ?? "Failed to fetch Pokemon list";
+          state.error = false;
+          state.loading = false;
         }
       )
       .addMatcher(
         isAllOf(pokemonApi.endpoints.getPokemonItemById.matchFulfilled),
         (state, action) => {
-          console.log("🚀 ~ state:", state, action)
           state.selectedPokemon = action?.payload;
-          // state.error = action.error.message ?? "Failed to fetch Pokemon list";
+          state.error = false;
+          state.loading = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(pokemonApi.endpoints.getPokemonItemById.matchPending, pokemonApi.endpoints.getPokemonList.matchPending),
+        (state, action) => {
+          state.error = false;
+          state.loading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(pokemonApi.endpoints.getPokemonItemById.matchRejected, pokemonApi.endpoints.getPokemonList.matchRejected),
+        (state, action) => {
+          state.loading = false;
+          state.error = true;
         }
       )
   },
