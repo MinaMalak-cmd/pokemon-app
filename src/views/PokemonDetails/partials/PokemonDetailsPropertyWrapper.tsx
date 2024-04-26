@@ -1,9 +1,9 @@
-import { FC, memo, useMemo } from "react";
+import { FC, ReactNode, memo, useMemo } from "react";
 import styles from "./PokemonDetailsPropertyWrapper.module.scss";
 
 interface PropertyWrapperProps {
   title: string;
-  value: string | Number | string[];
+  value: string | Number | string[] | ReactNode;
   isType?: boolean;
 }
 const PokemonDetailsPropertyWrapper: FC<PropertyWrapperProps> = ({
@@ -13,14 +13,14 @@ const PokemonDetailsPropertyWrapper: FC<PropertyWrapperProps> = ({
 }) => {
   const propertyValue = useMemo(() => {
     return !isType ? (
-      <span>{value.toString()}</span>
+      <span>{value?.toString() || ""}</span>
     ) : (
       <div>
         {Array.isArray(value) &&
-          value?.map((type: string) => <div>{type}</div>)}
+          value?.map((type: string) => <div key={Math.random()}>{type}</div>)}
       </div>
     );
-  }, []);
+  }, [title, value, isType]);
   return (
     <div className={styles["property-wrapper"]}>
       <p className={styles["property-title"]}>{title}</p>

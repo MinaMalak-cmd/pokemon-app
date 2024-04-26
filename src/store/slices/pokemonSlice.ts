@@ -39,21 +39,25 @@ const pokemonSlice = createSlice({
         }
       )
       .addMatcher(
+        isAllOf(pokemonApi.endpoints.getPokemonItemById.matchPending),
+        (state, action) => {
+          console.log("🚀 ~ state: Pendinggggg", state, action)
+          // state.selectedPokemon = action?.payload;
+          // state.error = action.error.message ?? "Failed to fetch Pokemon list";
+        }
+      )
+      .addMatcher(
         isAllOf(pokemonApi.endpoints.getPokemonItemById.matchFulfilled),
         (state, action) => {
           console.log("🚀 ~ state:", state, action)
           state.selectedPokemon = action?.payload;
           // state.error = action.error.message ?? "Failed to fetch Pokemon list";
         }
-      );
+      )
   },
 });
 export const { setSelectedPokemon, setPokemonId } = pokemonSlice.actions;
-export const selectPokemonList = (state: RootState) => state.pokemonSlice.list;
-export const selectedPokemon = (state: RootState) =>
-  state.pokemonSlice.selectedPokemon;
 export const selectPokemonId = (state: RootState) =>
   state.pokemonSlice.pokemonId;
-// export const useSelectState = (key: keyof PokemonState) => (state: RootState) => state.pokemonSlice[key];
 export const useSelectState = <T extends keyof PokemonState>(key: T) => (state: RootState): PokemonState[T] => state.pokemonSlice[key];
 export default pokemonSlice.reducer;
