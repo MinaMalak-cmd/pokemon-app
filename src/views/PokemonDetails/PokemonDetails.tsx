@@ -1,4 +1,4 @@
-import { FC, useEffect, memo, useMemo, useCallback, ReactNode } from "react";
+import { FC, memo, useMemo, useCallback } from "react";
 import { PokemonPartial } from "../../types/types";
 import styles from "./PokemonDetails.module.scss";
 import getPokemonImageUrl from "../../utils/getPokemonImageUrl";
@@ -8,10 +8,8 @@ import { useSelector } from "react-redux";
 import { useSelectState } from "../../store/slices/pokemonSlice";
 import { useGetPokemonItemByIdQuery } from "../../services/pokemonApi";
 
-interface PokemonDetailsProps {
-  pokemonId : string | number;
-}
-const PokemonDetails: FC<PokemonDetailsProps> = ({pokemonId}) => {
+const PokemonDetails: FC = () => {
+  const pokemonId = useSelector(useSelectState('pokemonId')) || '';
   useGetPokemonItemByIdQuery(pokemonId);
   const pokemonData = useSelector(useSelectState('selectedPokemon'));
   const imgSrc = getPokemonImageUrl(pokemonData?.id);
