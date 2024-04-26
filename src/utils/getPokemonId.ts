@@ -1,5 +1,4 @@
 const getPokemonId = (url: string): number | null => {
-  console.log("🚀 ~ getPokemonId ~ url:", url)
   const idMatch = url.match(/\/pokemon\/(\d+)\/?$/);
 
   if (idMatch) {

@@ -24,3 +24,11 @@ export interface PokemonPartial {
   id: string;
   types: PokemonType[];
 }
+
+export interface PokemonState {
+  list: PokemonResult[];
+  loading: boolean;
+  error: string | null;
+  selectedPokemon: PokemonPartial | undefined;
+  pokemonId : string | number | undefined;
+}
