@@ -1,9 +1,9 @@
-import { FC, ReactNode, memo, useMemo } from "react";
+import { FC, memo, useMemo } from "react";
 import styles from "./PokemonDetailsPropertyWrapper.module.scss";
 
 interface PropertyWrapperProps {
   title: string;
-  value: string | Number | string[] | ReactNode;
+  value: string | Number | string[];
   isType?: boolean;
 }
 const PokemonDetailsPropertyWrapper: FC<PropertyWrapperProps> = ({

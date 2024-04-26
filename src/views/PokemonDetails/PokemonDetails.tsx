@@ -19,10 +19,9 @@ const PokemonDetails: FC<PokemonDetailsProps> = ({pokemonId}) => {
   const valueOrEmpty = useCallback((key:string) => {
     return pokemonData && pokemonData[key as keyof PokemonPartial] ? pokemonData[key as keyof PokemonPartial] : '';  
   },[pokemonData])
-  // const formattedName = useMemo(() => {
-  //   return valueOrEmpty('name') as any
-  // }, [valueOrEmpty, pokemonData?.name])
-  const formattedName = valueOrEmpty('name') as ReactNode;
+  const formattedName = useMemo(() => {
+    return valueOrEmpty('name') as any
+  }, [valueOrEmpty, pokemonData?.name])
   console.log("🚀 ~ formattedName:", formattedName)
   const formattedHeight = useMemo(() => {
     return `${valueOrEmpty('height')} cm`
