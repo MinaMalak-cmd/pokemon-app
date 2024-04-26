@@ -1,5 +1,5 @@
 import { FC, memo, useMemo, useCallback } from "react";
-import { PokemonPartial } from "../../types/types";
+import { PokemonPartial } from "../../types";
 import styles from "./PokemonDetails.module.scss";
 import getPokemonImageUrl from "../../utils/getPokemonImageUrl";
 import PokemonDetailsPropertyWrapper from "./partials/PokemonDetailsPropertyWrapper";

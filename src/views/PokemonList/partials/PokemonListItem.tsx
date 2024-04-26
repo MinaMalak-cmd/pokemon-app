@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { PokemonResult } from "../../../types/types";
+import { PokemonResult } from "../../../types";
 import getPokemonId from "../../../utils/getPokemonId";
 import styles from "./PokemonListItem.module.scss";
 import getPokemonImageUrl from "../../../utils/getPokemonImageUrl";

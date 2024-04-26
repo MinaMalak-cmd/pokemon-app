@@ -1,4 +1,4 @@
-import { PokemonType } from "../types/types";
+import { PokemonType } from "../types";
 
 const formatPokemonTypes = (types: PokemonType[] | undefined): string[] => {
   if(!types) return [];

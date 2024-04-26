@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { PokemonListResponse, PokemonPartial } from '../types/types';
+import { PokemonListResponse, PokemonPartial } from '../types';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 

@@ -1,6 +1,6 @@
 import { createSlice, isAllOf, PayloadAction, isAnyOf } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { PokemonPartial, PokemonState } from "../../types/types";
+import { PokemonPartial, PokemonState } from "../../types";
 import { pokemonApi } from "../../services/pokemonApi";
 
 const initialState: PokemonState = {
