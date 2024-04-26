@@ -21,14 +21,14 @@ const PokemonDetails: FC<PokemonDetailsProps> = ({pokemonId}) => {
   },[pokemonData])
   const formattedName = useMemo(() => {
     return valueOrEmpty('name') as any
-  }, [valueOrEmpty, pokemonData?.name])
+  }, [valueOrEmpty])
   console.log("🚀 ~ formattedName:", formattedName)
   const formattedHeight = useMemo(() => {
     return `${valueOrEmpty('height')} cm`
-  }, [valueOrEmpty, pokemonData?.height]);
+  }, [valueOrEmpty]);
   const formattedWeight = useMemo(() => {
     return `${valueOrEmpty('weight')} kg`
-  }, [valueOrEmpty, pokemonData?.weight]);
+  }, [valueOrEmpty]);
   const formattedTypes = useMemo(() => {
     return formatPokemonTypes(pokemonData?.types);
   }, [pokemonData?.types])
