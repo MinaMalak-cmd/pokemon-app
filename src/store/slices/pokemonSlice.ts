@@ -1,9 +1,9 @@
 import { createSlice, isAllOf, PayloadAction, isAnyOf } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { PokemonPartial, PokemonState } from "../../types/types";
+import { PokemonPartial, PokemonState } from "../../types";
 import { pokemonApi } from "../../services/pokemonApi";
 
-const initialState: PokemonState = {
+export const initialPokemonState: PokemonState = {
   list: [],
   loading: false,
   error: false,
@@ -14,7 +14,7 @@ const initialState: PokemonState = {
 
 const pokemonSlice = createSlice({
   name: "pokemon",
-  initialState,
+  initialState: initialPokemonState,
   reducers: {
     setSelectedPokemon(
       state,

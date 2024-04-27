@@ -1,15 +1,15 @@
 import styles from "./styles/App.module.scss";
-import { useSelector } from "react-redux";
 import { useSelectState } from "./store/slices/pokemonSlice";
 import { memo, useMemo } from "react";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
 import PokemonWrapper from "./views/PokemonWrapper";
+import { useTypedSelector } from "./store/store-hooks";
 
 const App = () => {
-  const pokemonId = useSelector(useSelectState('pokemonId'));
-  const loading = useSelector(useSelectState('loading'));
-  const error = useSelector(useSelectState('error'));
+  const pokemonId = useTypedSelector(useSelectState('pokemonId'));
+  const loading = useTypedSelector(useSelectState('loading'));
+  const error = useTypedSelector(useSelectState('error'));
   const renderLayout = useMemo(() => {
     return error ? <Error /> : loading? <Loader />: <PokemonWrapper pokemonId={pokemonId}/>
   }, [error, loading, pokemonId])

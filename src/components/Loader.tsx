@@ -1,6 +1,6 @@
 const Loader = () => {
     return ( 
-        <div>Loading ...</div>
+        <div data-testid="pokemon-loading">Loading ...</div>
      );
 }
  

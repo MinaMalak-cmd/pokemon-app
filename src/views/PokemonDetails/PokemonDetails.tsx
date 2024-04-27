@@ -1,17 +1,17 @@
 import { FC, memo, useMemo, useCallback } from "react";
-import { PokemonPartial } from "../../types/types";
+import { PokemonPartial } from "../../types";
 import styles from "./PokemonDetails.module.scss";
 import getPokemonImageUrl from "../../utils/getPokemonImageUrl";
 import PokemonDetailsPropertyWrapper from "./partials/PokemonDetailsPropertyWrapper";
 import formatPokemonTypes from "../../utils/formatPokemonType";
-import { useSelector } from "react-redux";
 import { useSelectState } from "../../store/slices/pokemonSlice";
 import { useGetPokemonItemByIdQuery } from "../../services/pokemonApi";
+import { useTypedSelector } from "../../store/store-hooks";
 
 const PokemonDetails: FC = () => {
-  const pokemonId = useSelector(useSelectState('pokemonId')) || '';
+  const pokemonId = useTypedSelector(useSelectState('pokemonId')) || '';
   useGetPokemonItemByIdQuery(pokemonId);
-  const pokemonData = useSelector(useSelectState('selectedPokemon'));
+  const pokemonData = useTypedSelector(useSelectState('selectedPokemon'));
   const imgSrc = getPokemonImageUrl(pokemonData?.id);
   const valueOrEmpty = useCallback((key:string) => {
     return pokemonData && pokemonData[key as keyof PokemonPartial] ? pokemonData[key as keyof PokemonPartial] : '';  
@@ -29,7 +29,7 @@ const PokemonDetails: FC = () => {
     return formatPokemonTypes(pokemonData?.types);
   }, [pokemonData?.types])
   return (
-    <section>
+    <section data-testid="pokemon-details">
       <h3 className={styles["pokemon-details-header"]}>{formattedName}</h3>
       <img src={imgSrc} alt="pokemon" className={styles['pokemon-details-image']}/>
       <PokemonDetailsPropertyWrapper title="Name" value={formattedName} key="Name"/>
