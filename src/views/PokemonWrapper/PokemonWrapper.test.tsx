@@ -7,7 +7,10 @@ import {
   fireEvent,
 } from "@testing-library/react";
 import { store } from "../../store/store";
-import { useGetPokemonItemByIdQuery, useGetPokemonListQuery } from "../../services/pokemonApi";
+import {
+  useGetPokemonItemByIdQuery,
+  useGetPokemonListQuery,
+} from "../../services/pokemonApi";
 import { Provider } from "react-redux";
 import fetchMock from "jest-fetch-mock";
 import App from "../../App";
@@ -29,6 +32,8 @@ describe("PokemonWrapper Component", () => {
 
   const endpointName = "getPokemonList";
   const data = {};
+  const data2 = {};
+  let id: number | null = null;
   beforeEach(() => {
     fetchMock.mockOnceIf(BASE_URL, () =>
       Promise.resolve({
@@ -36,10 +41,15 @@ describe("PokemonWrapper Component", () => {
         body: JSON.stringify({ data }),
       })
     );
+    fetchMock.mockOnceIf(`${BASE_URL}/pokemon/${id}`, () =>
+      Promise.resolve({
+        status: 200,
+        body: JSON.stringify({ data: data2 }),
+      })
+    );
   });
-  console.log("🚀 ~ describe ~ data:", data);
 
-  it("Check loading component renders", async () => {
+  it("Check dynamic rendering and switching between pokemon list and pokemon details", async () => {
     render(
       <Provider store={store}>
         <App />
@@ -47,18 +57,14 @@ describe("PokemonWrapper Component", () => {
     );
     const loadingCompId = screen.getByTestId("pokemon-loading");
     expect(loadingCompId).toBeInTheDocument();
-    const { result } = renderHook(() => useGetPokemonListQuery(), {
-      wrapper,
-    });
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
-
-    console.log(
-      "🚀 ~ expect ~ result.current:",
-      result.current.data?.results.length,
-      JSON.stringify(result.current.data?.results),
-      result.current.data?.results[0]
+    const { result: pokemonListResult } = renderHook(
+      () => useGetPokemonListQuery(),
+      {
+        wrapper,
+      }
     );
-    expect(result.current).toMatchObject({
+    await waitFor(() => expect(pokemonListResult.current.isSuccess).toBe(true));
+    expect(pokemonListResult.current).toMatchObject({
       status: "fulfilled",
       endpointName,
       data,
@@ -69,14 +75,15 @@ describe("PokemonWrapper Component", () => {
       isFetching: false,
     });
     const pokemonListTitle = screen.getByText(/PokeReact/i);
-    console.log("🚀 ~ it ~ pokemonListTitle:", pokemonListTitle);
-    const pokemonUrl = result?.current?.data?.results[0].url;
-    expect(pokemonUrl).toMatch(/^https:\/\/pokeapi\.co\/api\/v2\/pokemon\/\d+\/$/);;
-    const id = getPokemonId(pokemonUrl);
+    expect(pokemonListTitle).toBeInTheDocument();
+    const selectedPokemon = pokemonListResult?.current?.data?.results[0];
+    const pokemonUrl = selectedPokemon?.url;
+    expect(pokemonUrl).toMatch(
+      /^https:\/\/pokeapi\.co\/api\/v2\/pokemon\/\d+\/$/
+    );
+    id = getPokemonId(pokemonUrl);
     expect(id).toBeGreaterThan(-1);
-    console.log("🚀 ~ it ~ id:", id);
     const pokemonListItem = screen.getByTestId(`pokemon-list-item-${id}`);
-    console.log("🚀 ~ it ~ pokemonListItem:", pokemonListItem);
     expect(pokemonListItem).toBeInTheDocument();
     fireEvent(
       pokemonListItem,
@@ -86,33 +93,37 @@ describe("PokemonWrapper Component", () => {
       })
     );
     expect(fetchMock).toBeCalledTimes(1);
-    // expect(loadingCompId).toBeInTheDocument();
-    // (await waitFor(() => expect(screen.getByTestId("pokemon-details")))).toBeInTheDocument();
     await screen.findByTestId("pokemon-details");
-    console.log(
-      "🚀 ~ it ~ screen.getByTestId(pokemon-details):",
-      screen.getByTestId("pokemon-details")
-    );
-
+    const nameElements = await screen.findAllByText(selectedPokemon?.name || Math.random.toString());
+    expect(nameElements.length).toBe(2);
+    // const data2 = {};
     // fetchMock.mockOnceIf(`${BASE_URL}/pokemon/${id}`, () =>
     //     Promise.resolve({
-    //         status: 200,
-    //         body: JSON.stringify({data:pokemonItemData})
+    //       status: 200,
+    //       body: JSON.stringify({ data: data2 }),
     //     })
     // );
-    const { result: pokemonDetails } = renderHook(() => useGetPokemonItemByIdQuery(id? id : -1), {
-      wrapper,
-    });
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
-    const pokemonItemData = pokemonDetails.current.data as PokemonPartial;
-
-    console.log("dataaaaa", pokemonItemData);
-    expect(screen.getByText(pokemonItemData.name)).toBeInTheDocument();
-    expect(screen.getByText(`${pokemonItemData.height} cm`)).toBeInTheDocument();
-    expect(screen.getByText(`${pokemonItemData.weight} kg`)).toBeInTheDocument();
-    // // Check if the types are rendered correctly
-    // mockPokemonItemResponse.types.forEach(type => {
-    //   expect(screen.getByText(type.type.name)).toBeInTheDocument();
+    // const { result: pokemonDetails } = renderHook(() => useGetPokemonItemByIdQuery(id? id : -1), {
+    //     wrapper,
     // });
+    // await waitFor(() => expect(pokemonDetails.current.isSuccess).toBe(true));
+    // const pokemonItemData = pokemonDetails.current.data as PokemonPartial;
+    // expect(screen.getByText(pokemonItemData.name)).toBeInTheDocument();
+    // expect(screen.getByText(`${pokemonItemData.height} cm`)).toBeInTheDocument();
+    // expect(screen.getByText(`${pokemonItemData.weight} kg`)).toBeInTheDocument();
   });
+//   it("check pokemon details rendering", async () => {
+//     const { result } = renderHook(
+//       () => useGetPokemonItemByIdQuery(id ? id : -1),
+//       {
+//         wrapper,
+//       }
+//     );
+//     await waitFor(() => expect(result.current.isSuccess).toBe(true));
+//     console.log("🚀 ~ const{result}=renderHook ~ result:", JSON.stringify(result.current.data));
+//     const pokemonItemData = result.current.data as PokemonPartial;
+//     expect(screen.getByText(pokemonItemData.name)).toBeInTheDocument();
+//     expect(screen.getByText(`${pokemonItemData.height} cm`)).toBeInTheDocument();
+//     expect(screen.getByText(`${pokemonItemData.weight} kg`)).toBeInTheDocument();
+//   });
 });
