@@ -8,6 +8,7 @@ import {
 } from "@testing-library/react";
 import { store } from "../../store/store";
 import {
+  BASE_URL,
   useGetPokemonListQuery,
 } from "../../services/pokemonApi";
 import { Provider } from "react-redux";
@@ -21,7 +22,6 @@ function wrapper({ children }: { children: ReactNode }) {
 beforeEach(() => {
   fetchMock.resetMocks();
 });
-const BASE_URL = `https://pokeapi.co/api/v2`;
 describe("PokemonWrapper Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();

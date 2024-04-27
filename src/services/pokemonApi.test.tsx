@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import fetchMock from 'jest-fetch-mock';
 
 import { store } from '../store/store';
-import { useGetPokemonItemByIdQuery, useGetPokemonListQuery } from './pokemonApi';
+import { BASE_URL, useGetPokemonItemByIdQuery, useGetPokemonListQuery } from './pokemonApi';
 
 function wrapper({ children }: { children: ReactNode }) {
   return <Provider store={store}>{children}</Provider>;
@@ -20,7 +20,7 @@ describe('retrieve pokemon by id', () => {
   const data = {};
 
   beforeEach(() => {
-    fetchMock.mockOnceIf(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`, () =>
+    fetchMock.mockOnceIf(`${BASE_URL}/pokemon/${pokemonId}`, () =>
       Promise.resolve({
         status: 200,
         body: JSON.stringify({ data }),
@@ -63,7 +63,7 @@ describe('retrieve all pokemon data', () => {
     const data = {};
   
     beforeEach(() => {
-      fetchMock.mockOnceIf(`https://pokeapi.co/api/v2`, () =>
+      fetchMock.mockOnceIf(BASE_URL, () =>
         Promise.resolve({
           status: 200,
           body: JSON.stringify({ data }),

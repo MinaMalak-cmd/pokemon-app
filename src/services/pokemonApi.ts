@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { PokemonListResponse, PokemonPartial } from '../types';
 
-const BASE_URL = 'https://pokeapi.co/api/v2';
-
+export const BASE_URL = process.env.REACT_APP_BASE_URL?.trim() || 'https://pokeapi.co/api/v2';
 // Define an API slice with RTK Query
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
