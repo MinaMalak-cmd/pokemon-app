@@ -29,6 +29,7 @@ describe("PokemonWrapper Component", () => {
 
   const endpointName = "getPokemonList";
   const data = {};
+  const data2 = {};
   let id: number | null = null;
   beforeEach(() => {
     fetchMock.mockOnceIf(BASE_URL, () =>
@@ -37,6 +38,12 @@ describe("PokemonWrapper Component", () => {
         body: JSON.stringify({ data }),
       })
     );
+    fetchMock.mockOnceIf(`${BASE_URL}/pokemon/${id}`, () =>
+        Promise.resolve({
+          status: 200,
+          body: JSON.stringify({ data: data2 }),
+        })
+      );
   });
 
   it("Check dynamic rendering and switching between pokemon list and pokemon details", async () => {
@@ -84,7 +91,7 @@ describe("PokemonWrapper Component", () => {
     );
     expect(fetchMock).toBeCalledTimes(1);
     await screen.findByTestId("pokemon-details");
-    const nameElements = await screen.findAllByText(selectedPokemon?.name || Math.random.toString());
+    const nameElements = await waitFor(() => screen.findAllByText(selectedPokemon?.name || Math.random.toString()));
     expect(nameElements.length).toBe(2);
   });
 });
