@@ -1,5 +1,5 @@
-const getPokemonId = (url: string): number | null => {
-  const idMatch = url.match(/\/pokemon\/(\d+)\/?$/);
+const getPokemonId = (url: string|undefined): number | null => {
+  const idMatch = url?.match(/\/pokemon\/(\d+)\/?$/);
 
   if (idMatch) {
     const id = parseInt(idMatch[1]);

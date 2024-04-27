@@ -15,6 +15,7 @@ const PokemonListItem: FC<PokemonListItemProps> = ({ pokemon, pokemonClickHandle
       key={getPokemonId(pokemon.url)}
       className={styles["pokemon-item-wrapper"]}
       onClick={() => pokemonClickHandler(id)}
+      data-testid={`pokemon-list-item-${id}`}
     >
       <img src={imgSrc} alt="pokemon" />
       <p>{pokemon.name}</p>

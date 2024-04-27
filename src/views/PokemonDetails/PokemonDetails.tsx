@@ -29,7 +29,7 @@ const PokemonDetails: FC = () => {
     return formatPokemonTypes(pokemonData?.types);
   }, [pokemonData?.types])
   return (
-    <section>
+    <section data-testid="pokemon-details">
       <h3 className={styles["pokemon-details-header"]}>{formattedName}</h3>
       <img src={imgSrc} alt="pokemon" className={styles['pokemon-details-image']}/>
       <PokemonDetailsPropertyWrapper title="Name" value={formattedName} key="Name"/>

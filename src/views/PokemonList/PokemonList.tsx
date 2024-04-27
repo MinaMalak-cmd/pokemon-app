@@ -19,7 +19,7 @@ const PokemonList: FC = () => {
   }, [selectedPokemonId, dispatch])
   
   return (
-    <section>
+    <section data-testid="pokemon-list">
       <h3 className={styles['pokemon-list-header']}>PokeReact</h3>
       <ul className={styles['pokemon-list']}>
         {pokemonList?.map((pokemon) => (
