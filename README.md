@@ -21,14 +21,14 @@ Before running the application, ensure you have the following installed on your 
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/MinaMalak-cmd/pokemon-app.git
 
 2. Navigate to the project directory:
-    ```code 
+    ```bash 
     cd PokeReact
 
 3. Install dependencies:
-    ```code 
+    ```bash 
     npm install
 
 ## Running the application
