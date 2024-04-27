@@ -34,12 +34,12 @@ Before running the application, ensure you have the following installed on your 
     ```bash 
     npm start
     ```
+    
+    Runs the app in the development mode.\
+    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    The page will reload if you make edits.\
+    You will also see any lint errors in the console.
 
 ## To test the application
  ### `npm test`
