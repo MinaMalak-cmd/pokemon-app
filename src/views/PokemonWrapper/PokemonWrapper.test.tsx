@@ -8,16 +8,13 @@ import {
 } from "@testing-library/react";
 import { store } from "../../store/store";
 import {
-  useGetPokemonItemByIdQuery,
   useGetPokemonListQuery,
 } from "../../services/pokemonApi";
 import { Provider } from "react-redux";
 import fetchMock from "jest-fetch-mock";
 import App from "../../App";
 import getPokemonId from "../../utils/getPokemonId";
-import { PokemonPartial } from "../../types";
 
-// const mockedStore = store();
 function wrapper({ children }: { children: ReactNode }) {
   return <Provider store={store}>{children}</Provider>;
 }
@@ -32,19 +29,12 @@ describe("PokemonWrapper Component", () => {
 
   const endpointName = "getPokemonList";
   const data = {};
-  const data2 = {};
   let id: number | null = null;
   beforeEach(() => {
     fetchMock.mockOnceIf(BASE_URL, () =>
       Promise.resolve({
         status: 200,
         body: JSON.stringify({ data }),
-      })
-    );
-    fetchMock.mockOnceIf(`${BASE_URL}/pokemon/${id}`, () =>
-      Promise.resolve({
-        status: 200,
-        body: JSON.stringify({ data: data2 }),
       })
     );
   });
@@ -96,34 +86,5 @@ describe("PokemonWrapper Component", () => {
     await screen.findByTestId("pokemon-details");
     const nameElements = await screen.findAllByText(selectedPokemon?.name || Math.random.toString());
     expect(nameElements.length).toBe(2);
-    // const data2 = {};
-    // fetchMock.mockOnceIf(`${BASE_URL}/pokemon/${id}`, () =>
-    //     Promise.resolve({
-    //       status: 200,
-    //       body: JSON.stringify({ data: data2 }),
-    //     })
-    // );
-    // const { result: pokemonDetails } = renderHook(() => useGetPokemonItemByIdQuery(id? id : -1), {
-    //     wrapper,
-    // });
-    // await waitFor(() => expect(pokemonDetails.current.isSuccess).toBe(true));
-    // const pokemonItemData = pokemonDetails.current.data as PokemonPartial;
-    // expect(screen.getByText(pokemonItemData.name)).toBeInTheDocument();
-    // expect(screen.getByText(`${pokemonItemData.height} cm`)).toBeInTheDocument();
-    // expect(screen.getByText(`${pokemonItemData.weight} kg`)).toBeInTheDocument();
   });
-//   it("check pokemon details rendering", async () => {
-//     const { result } = renderHook(
-//       () => useGetPokemonItemByIdQuery(id ? id : -1),
-//       {
-//         wrapper,
-//       }
-//     );
-//     await waitFor(() => expect(result.current.isSuccess).toBe(true));
-//     console.log("🚀 ~ const{result}=renderHook ~ result:", JSON.stringify(result.current.data));
-//     const pokemonItemData = result.current.data as PokemonPartial;
-//     expect(screen.getByText(pokemonItemData.name)).toBeInTheDocument();
-//     expect(screen.getByText(`${pokemonItemData.height} cm`)).toBeInTheDocument();
-//     expect(screen.getByText(`${pokemonItemData.weight} kg`)).toBeInTheDocument();
-//   });
 });
